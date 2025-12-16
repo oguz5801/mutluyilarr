@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MİM Raporlama • 2025 Wrapped</title>
+
+  <!-- Fontlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* BBVA'ya yakın, daha aydınlık tonlar */
+      --bbva:#004481;
+      --bbva2:#1464A5;
+      --bbva3:#2DCCCD;
+      --winter:#F6FAFF;
+      --bg1:#EAF3FF;
+      --bg2:#F4FBFF;
+      --text:#0b1b2b;
+      --muted: rgba(11,27,43,.72);
+      --card: rgba(255,255,255,.78);
+      --cardBorder: rgba(0,68,129,.12);
+      --shadow: 0 22px 55px rgba(0, 68, 129, .18);
+      --radius: 26px;
+      --accent: #1464A5;
+      --accent2:#2DCCCD;
+      /* Çok ufak yılbaşı dokunuşu (altın) */
+      --spark:#F6C343;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 650px at 15% 10%, rgba(45,204,205,.20), transparent 60%),
+        radial-gradient(900px 650px at 85% 20%, rgba(20,100,165,.18), transparent 55%),
+        radial-gradient(900px 650px at 35% 90%, rgba(0,68,129,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow: hidden; /* scroll container */
+    }
+
+    a{ color: inherit; }
+
+    .wrap{
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .panel{
+      height: 100vh;
+      scroll-snap-align: start;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 28px 18px;
+      position: relative;
+    }
+
+    /* Daha sade kar efekti */
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.90) 0 1px, transparent 2px),
+        radial-gradient(circle at 60% 30%, rgba(255,255,255,.80) 0 1px, transparent 2px),
+        radial-gradient(circle at 20% 70%, rgba(255,255,255,.70) 0 1px, transparent 2px),
+        radial-gradient(circle at 75% 80%, rgba(255,255,255,.85) 0 1px, transparent 2px);
+      background-size: 240px 240px, 280px 280px, 260px 260px, 300px 300px;
+      animation: drift 14s linear infinite;
+    }
+    @keyframes drift{
+      0%{ background-position: 0 0, 0 0, 0 0, 0 0; }
+      100%{ background-position: 0 360px, 0 460px, 0 420px, 0 500px; }
+    }
+
+    .card{
+      width: min(920px, 92vw);
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.62));
+      border: 1px solid var(--cardBorder);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 280px at 10% 10%, rgba(45,204,205,.12), transparent 55%),
+        radial-gradient(800px 260px at 90% 15%, rgba(20,100,165,.10), transparent 55%),
+        radial-gradient(700px 220px at 55% 110%, rgba(246,195,67,.08), transparent 60%);
+    }
+
+    .stack{ position: relative; z-index: 1; }
+
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(0,68,129,.06);
+      border: 1px solid rgba(0,68,129,.10);
+      color: rgba(11,27,43,.74);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .dot{
+      width:10px; height:10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 6px rgba(20,100,165,.10);
+    }
+
+    h1{
+      margin: 16px 0 10px;
+      font-size: clamp(32px, 5.2vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+    }
+
+    .sub{
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(15px, 2.1vw, 18px);
+      line-height: 1.55;
+      max-width: 70ch;
+    }
+
+    .hint{
+      margin-top: 18px;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      color: rgba(11,27,43,.62);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .chev{
+      width: 12px; height: 12px;
+      border-right: 2px solid rgba(11,27,43,.55);
+      border-bottom: 2px solid rgba(11,27,43,.55);
+      transform: rotate(45deg);
+      animation: bounce 1.2s ease-in-out infinite;
+    }
+
+    @keyframes bounce{
+      0%,100%{ transform: translateY(0) rotate(45deg); opacity:.85; }
+      50%{ transform: translateY(6px) rotate(45deg); opacity:1; }
+    }
+
+    /* Stat panel */
+    .stat{ display:flex; flex-direction: column; gap: 10px; }
+
+    .big{
+      font-size: clamp(42px, 8vw, 92px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      margin: 10px 0 2px;
+      background: linear-gradient(90deg, var(--bbva), var(--bbva2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .big .plus{ color: rgba(0,68,129,.85); }
+
+    .label{
+      font-size: clamp(16px, 2.4vw, 22px);
+      color: rgba(11,27,43,.88);
+      line-height: 1.35;
+    }
+
+    .meta{
+      margin-top: 14px;
+      color: rgba(11,27,43,.64);
+      font-size: 13px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill{
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,68,129,.05);
+      border: 1px solid rgba(0,68,129,.10);
+    }
+
+    /* Değerler */
+    .values p{ margin: 0; }
+    .values .lead{
+      font-size: clamp(18px, 2.6vw, 22px);
+      color: rgba(11,27,43,.80);
+      line-height: 1.6;
+      max-width: 72ch;
+    }
+    .values .together{
+      margin-top: 18px;
+      font-size: clamp(34px, 6vw, 78px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--bbva2), var(--bbva3), var(--bbva));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Fotoğraf alanı */
+    .photo-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (min-width: 860px){
+      .photo-grid{ grid-template-columns: 1.1fr .9fr; align-items: start; }
+    }
+
+    .controls, .preview{
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(0,68,129,.12);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .controls h3{ margin: 0 0 10px; font-size: 16px; }
+    .controls p{ margin: 0 0 12px; color: rgba(11,27,43,.72); line-height: 1.5; font-size: 14px; }
+
+    .row{ display:flex; gap: 10px; flex-wrap: wrap; align-items:center; }
+
+    input[type=file]{
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(0,68,129,.28);
+      background: rgba(234,243,255,.65);
+      color: rgba(11,27,43,.90);
+    }
+
+    button{
+      appearance: none;
+      border: 0;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, var(--bbva), var(--bbva2));
+      box-shadow: 0 14px 30px rgba(0,68,129,.22);
+    }
+    button.secondary{
+      background: rgba(0,68,129,.08);
+      color: rgba(0,68,129,.92);
+      border: 1px solid rgba(0,68,129,.16);
+      box-shadow: none;
+    }
+    button:disabled{ opacity:.5; cursor:not-allowed; }
+
+    canvas{
+      width: 100%;
+      max-width: 520px;
+      border-radius: 18px;
+      border: 1px solid rgba(0,68,129,.14);
+      background: rgba(255,255,255,.75);
+    }
+
+    .tiny{ font-size: 12px; color: rgba(11,27,43,.62); line-height: 1.45; }
+
+    .footer{
+      margin-top: 12px;
+      color: rgba(11,27,43,.55);
+      font-size: 12px;
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .glow{
+      position:absolute;
+      right:-160px;
+      top:-160px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(45,204,205,.22), rgba(45,204,205,0) 60%);
+      opacity: .65;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow2{
+      position:absolute;
+      left:-220px;
+      bottom:-220px;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 70% 70%, rgba(20,100,165,.20), rgba(20,100,165,0) 62%);
+      opacity: .60;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap" id="wrap">
+
+    <!-- 1) Kapak -->
+    <section class="panel">
+      <div class="card">
+        <div class="glow"></div>
+        <div class="glow2"></div>
+
+        <div class="stack">
+          <div class="kicker"><span class="dot"></span> 2025 • MİM Raporlama Wrapped</div>
+          <h1>Rakamlarla bir yıl…<br/>ve arkasındaki emek.</h1>
+          <p class="sub">
+            Aşağı kaydırdıkça 2025 boyunca birlikte neler başardığımızı göreceksin.
+           </p>
+          <div class="hint"><span class="chev"></span> Kaydır</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) Stat 1 -->
+    <section class="panel">
+      <div class="card"><div class="stack stat">
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 1/7</div>
+        <div class="big"><span class="count" data-target="10000">0</span><span class="plus">+</span></div>
+        <div class="label">2025 yılında <b>10.000+</b> rapor hazırladık.</div>
+        <div class="meta"><span class="pill">Raporlama</span><span class="pill">Analiz</span><span class="pill">Süreç takibi</span></div>
+      </div></div>
+    </section>
+
+    <!-- 3) Stat 2 -->
+    <section class="panel">
+      <div class="card"><div class="stack stat">
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 2/7</div>
+        <div class="big"><span class="count" data-target="8000">0</span><span class="plus">+</span></div>
+        <div class="label"><b>8.000+</b> raporu e-posta ile paylaştık.</div>
+        <div class="meta"><span class="pill">Paylaşım</span><span class="pill">Ekip çalışması</span><span class="pill">Hız</span></div>
+      </div></div>
+    </section>
+
+    <!-- 4) Stat 3 -->
+    <section class="panel">
+      <div class="card"><div class="stack stat">
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 3/7</div>
+        <div class="big"><span class="count" data-target="3000">0</span><span class="plus">+</span></div>
+        <div class="label"><b>3.000+</b> talebi zamanında karşıladık.</div>
+        <div class="meta"><span class="pill">Talep yönetimi</span><span class="pill">SLA</span><span class="pill">Çözüm</span></div>
+      </div></div>
+    </section>
+
+    <!-- 5) Stat 4 -->
+    <section class="panel">
+      <div class="card"><div class="stack stat">
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 4/7</div>
+        <div class="big"><span class="count" data-target="6000">0</span><span class="plus">+</span></div>
+        <div class="label">Her gün bağlılıkları Müşteri İletişim Merkezi’nde olan <b>6.000+</b> personelin tüm çağrı verilerine ulaştık.</div>
+        <div class="meta"><span class="pill">Çağrı verisi</span><span class="pill">Operasyon</span><span class="pill">Takip</span></div>
+      </div></div>
+    </section>
+
+    <!-- 6) Stat 5 -->
+    <section class="panel">
+      <div class="card"><div class="stack stat">
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 5/7</div>
+        <div class="big"><span class="count" data-target="100">0</span><span class="plus">%</span></div>
+        <div class="label">Tüm satış adetlerini hesapladık; raporlardan aksiyona giden yolu görünür kıldık.</div>
+        <div class="meta"><span class="pill">Satış</span><span class="pill">Performans</span><span class="pill">Görünürlük</span></div>
+        <p class="tiny"> </p>
+      </div></div>
+    </section>
+
+    <!-- 7) Yeni kart: Eğitimler -->
+    <section class="panel">
+      <div class="card"><div class="stack stat">
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 6/7</div>
+        <div class="big"><span class="count" data-target="70">0</span><span class="plus">+</span></div>
+        <div class="label"><b>60+</b> eğitim grubuna ve <b>10+</b> yeni yetkiliye eğitim verdik.</div>
+        <div class="meta"><span class="pill">Eğitim</span><span class="pill">Paylaşım</span><span class="pill">Standart</span></div>
+      </div></div>
+    </section>
+
+    <!-- 8) Yeni kart: QlikSense -->
+    <section class="panel">
+      <div class="card"><div class="stack stat">
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 7/7</div>
+        <div class="big"><span class="count" data-target="10">0</span><span class="plus">+</span></div>
+        <div class="label"><b>10+</b> Düzenli raporumuzu Qlik Sense üzerinden servis etmeye hazırız.</div>
+        <div class="meta"><span class="pill">Qlik Sense</span><span class="pill">Self-servis</span><span class="pill">Hazırlık</span></div>
+      </div></div>
+    </section>
+
+    <!-- 9) Teşekkür / Değerler -->
+    <section class="panel">
+      <div class="card">
+        <div class="stack values">
+          <div class="kicker"><span class="dot"></span> Teşekkür</div>
+          <h1>İşimiz rakamlarla…</h1>
+          <p class="lead">Tüm işimiz adetlere ve analizlere dayansa da, bizi birbirimize bağlayan şey her zaman <b>değerlerimiz</b> oldu.</p>
+          <div class="together">BİRLİKTE YAPARIZ.</div>
+          <div class="hint" style="margin-top:18px;"><span class="chev"></span> Bir sürpriz daha var</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10) Fotoğraf Hatırası -->
+    <section class="panel">
+      <div class="card">
+        <div class="stack">
+          <div class="kicker"><span class="dot"></span> Yılbaşı Hatırası</div>
+          <h1>Fotoğrafını ekle 🎄</h1>
+          <p class="sub">Bir fotoğraf yükle (ya da telefonda kameradan çek). Biz de sade bir yılbaşı çerçevesi ve yazısıyla “MİM RAPORLAMA HATIRASI” görselini oluşturalım.</p>
+
+          <div class="photo-grid">
+            <div class="controls">
+              <h3>1) Fotoğraf seç</h3>
+              <p>Mobilde açarsan kamera seçeneği de çıkabilir. (Cihaza göre “Fotoğraf çek” olarak görünür.)</p>
+              <input id="file" type="file" accept="image/*" capture="environment" />
+
+              <div style="height:12px"></div>
+
+              <h3>2) Oluştur & indir</h3>
+              <p>Önizleme hazır olduğunda “İndir” butonu aktif olacak.</p>
+              <div class="row">
+                <button id="make" class="secondary" disabled>Oluştur</button>
+                <button id="download" disabled>İndir</button>
+              </div>
+
+              <div style="height:12px"></div>
+              <p class="tiny">Eğer cihazın indirmeyi engellerse ekran görüntüsü de alabilirsin. (Ama çoğu tarayıcıda “İndir” sorunsuz çalışır.)</p>
+            </div>
+
+            <div class="preview">
+              <strong>Önizleme</strong>
+              <canvas id="canvas" width="1080" height="1080" aria-label="Yılbaşı hatırası görseli"></canvas>
+              <div class="tiny">İpucu: Fotoğrafın en güzel kısmı ortalansın diye yakın/uzak çekimle oynayabilirsin.</div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <span>© MİM Raporlama</span>
+            <span>Mutlu yıllar! ✨</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // --- Sayı animasyonu ---
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    function animateCount(el){
+      const target = Number(el.dataset.target || '0');
+      const start = 0;
+      const duration = 1100;
+      const t0 = performance.now();
+
+      function frame(now){
+        const t = Math.min(1, (now - t0) / duration);
+        const val = Math.round(start + (target - start) * easeOutCubic(t));
+        el.textContent = val.toLocaleString('tr-TR');
+        if(t < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      for(const e of entries){
+        if(e.isIntersecting){
+          const c = e.target.querySelector?.('.count');
+          if(c && !c.dataset.done){
+            c.dataset.done = '1';
+            animateCount(c);
+          }
+        }
+      }
+    }, { threshold: 0.55 });
+
+    document.querySelectorAll('.panel').forEach(p => io.observe(p));
+
+    // --- Fotoğraf çerçevesi oluşturma ---
+    const fileInput = document.getElementById('file');
+    const makeBtn = document.getElementById('make');
+    const dlBtn = document.getElementById('download');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const state = { img: null, composedUrl: null };
+
+    (function drawPlaceholder(){
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+      const g = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+      g.addColorStop(0, 'rgba(20,100,165,.18)');
+      g.addColorStop(1, 'rgba(45,204,205,.16)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,canvas.width, canvas.height);
+
+      ctx.fillStyle = 'rgba(11,27,43,.82)';
+      ctx.font = '800 54px Inter, system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Fotoğraf seçince burada görünecek', canvas.width/2, canvas.height/2 - 10);
+      ctx.fillStyle = 'rgba(11,27,43,.65)';
+      ctx.font = '600 34px Inter, system-ui, sans-serif';
+      ctx.fillText('📷  🎄  ✨', canvas.width/2, canvas.height/2 + 55);
+    })();
+
+    function roundRect(c, x, y, w, h, r){
+      const rr = Math.min(r, w/2, h/2);
+      c.beginPath();
+      c.moveTo(x+rr, y);
+      c.arcTo(x+w, y, x+w, y+h, rr);
+      c.arcTo(x+w, y+h, x, y+h, rr);
+      c.arcTo(x, y+h, x, y, rr);
+      c.arcTo(x, y, x+w, y, rr);
+      c.closePath();
+    }
+
+    function coverDrawImage(img){
+      const cw = canvas.width, ch = canvas.height;
+      const iw = img.naturalWidth, ih = img.naturalHeight;
+      const ir = iw/ih;
+      const cr = cw/ch;
+      let sx, sy, sw, sh;
+      if(ir > cr){
+        sh = ih;
+        sw = ih*cr;
+        sx = (iw - sw)/2;
+        sy = 0;
+      }else{
+        sw = iw;
+        sh = iw/cr;
+        sx = 0;
+        sy = (ih - sh)/2;
+      }
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
+    }
+
+    function drawLights(){
+      // Üstte sade ışık zinciri
+      ctx.lineWidth = 9;
+      ctx.strokeStyle = 'rgba(0,68,129,.18)';
+      ctx.beginPath();
+      ctx.moveTo(120, 130);
+      ctx.bezierCurveTo(canvas.width*0.32, 55, canvas.width*0.68, 220, canvas.width-120, 130);
+      ctx.stroke();
+
+      const bulbs = 10;
+      for(let i=0;i<bulbs;i++){
+        const t = i/(bulbs-1);
+        const x = 120 + (canvas.width-240)*t;
+        const y = 130 + Math.sin(t*Math.PI)*52;
+        const r = 15;
+        const gg = ctx.createRadialGradient(x-4,y-4,4,x,y,r);
+        gg.addColorStop(0,'rgba(255,255,255,.95)');
+        gg.addColorStop(1, i%2===0 ? 'rgba(45,204,205,.90)' : 'rgba(246,195,67,.92)');
+        ctx.fillStyle = gg;
+        ctx.beginPath();
+        ctx.arc(x,y,r,0,Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    function drawFrame(){
+      const pad = 36;
+      const r = 48;
+
+      ctx.save();
+      ctx.lineWidth = 14;
+      const g = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+      g.addColorStop(0, 'rgba(0,68,129,.90)');
+      g.addColorStop(.55, 'rgba(20,100,165,.78)');
+      g.addColorStop(1, 'rgba(45,204,205,.78)');
+      ctx.strokeStyle = g;
+
+      roundRect(ctx, pad, pad, canvas.width-pad*2, canvas.height-pad*2, r);
+      ctx.stroke();
+
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'rgba(255,255,255,.30)';
+      roundRect(ctx, pad+18, pad+18, canvas.width-(pad+18)*2, canvas.height-(pad+18)*2, r-10);
+      ctx.stroke();
+      ctx.restore();
+
+      drawLights();
+    }
+
+    function drawText(){
+      const text = 'MİM RAPORLAMA HATIRASI';
+      const y = canvas.height - 120;
+
+      ctx.save();
+      // Alt bant
+      ctx.fillStyle = 'rgba(255,255,255,.55)';
+      roundRect(ctx, 70, canvas.height-190, canvas.width-140, 130, 34);
+      ctx.fill();
+
+      // Yazı
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(0,0,0,.22)';
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 6;
+
+      ctx.font = '72px Pacifico, Inter, system-ui, sans-serif';
+      const gg = ctx.createLinearGradient(0, y-30, canvas.width, y+30);
+      gg.addColorStop(0, 'rgba(0,68,129,.92)');
+      gg.addColorStop(.55, 'rgba(20,100,165,.92)');
+      gg.addColorStop(1, 'rgba(45,204,205,.92)');
+      ctx.fillStyle = gg;
+      ctx.fillText(text, canvas.width/2, y);
+
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.fillStyle = 'rgba(11,27,43,.70)';
+      ctx.font = '800 30px Inter, system-ui, sans-serif';
+      ctx.fillText('2025', canvas.width/2, canvas.height - 56);
+      ctx.restore();
+    }
+
+    function compose(){
+      if(!state.img) return;
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+      coverDrawImage(state.img);
+
+      // hafif vignette
+      const vg = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.22, canvas.width/2, canvas.height/2, canvas.width*0.80);
+      vg.addColorStop(0, 'rgba(0,0,0,0)');
+      vg.addColorStop(1, 'rgba(0,0,0,.22)');
+      ctx.fillStyle = vg;
+      ctx.fillRect(0,0,canvas.width, canvas.height);
+
+      drawFrame();
+      drawText();
+
+      state.composedUrl = canvas.toDataURL('image/png');
+      dlBtn.disabled = false;
+    }
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      dlBtn.disabled = true;
+      state.composedUrl = null;
+
+      if(!file){ makeBtn.disabled = true; return; }
+      makeBtn.disabled = false;
+
+      const img = new Image();
+      img.onload = () => { state.img = img; };
+      img.onerror = () => { alert('Görsel okunamadı. Başka bir fotoğraf dener misin?'); };
+      img.src = URL.createObjectURL(file);
+    });
+
+    makeBtn.addEventListener('click', () => { if(state.img) compose(); });
+
+    dlBtn.addEventListener('click', () => {
+      if(!state.composedUrl) return;
+      const a = document.createElement('a');
+      a.href = state.composedUrl;
+      a.download = 'mim-raporlama-hatirasi.png';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+
+    document.fonts?.ready?.then(() => { if(state.img) compose(); });
+  </script>
+</body>
+</html>
