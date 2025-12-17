@@ -69,6 +69,15 @@
       position: relative;
     }
 
+    /* İçerik ekranı aştığında (özellikle foto panelinde) kartın içinde kaydır */
+    .panel.tall{ align-items: flex-start; }
+    .panel.tall .card{
+      max-height: calc(100vh - 56px);
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-gutter: stable;
+    }
+
     /* Sade-şık kar + çok hafif konfeti */
     .panel::before{
       content:"";
@@ -348,7 +357,7 @@
           <h1>Rakamlarla bir yıl…<br/>ve arkasındaki emek.</h1>
           <p class="sub">
             Aşağı kaydırdıkça 2025 boyunca birlikte neler başardığımızı göreceksin.
-           
+            (Spotify Wrapped gibi düşünebilirsin 🙂)
           </p>
           <div class="hint"><span class="chev"></span> Kaydır</div>
         </div>
@@ -402,7 +411,7 @@
         <div class="big"><span class="count" data-target="100">0</span><span class="plus">%</span></div>
         <div class="label">Tüm satış adetlerini hesapladık; raporlardan aksiyona giden yolu görünür kıldık.</div>
         <div class="meta"><span class="pill">Satış</span><span class="pill">Performans</span><span class="pill">Görünürlük</span></div>
-        <p class="tiny"> </p>
+        <p class="tiny">Not: Buradaki yüzde bir “vurgu” alanı. İstersen bunu gerçek bir sayıya (örn. 1.200.000+) çevirebilirsin.</p>
       </div></div>
     </section>
 
@@ -440,7 +449,7 @@
     </section>
 
     <!-- 10) Fotoğraf Hatırası -->
-    <section class="panel" data-theme="9">
+    <section class="panel tall" data-theme="9">
       <div class="card">
         <div class="stack">
           <div class="kicker"><span class="dot"></span> Yılbaşı Hatırası</div>
