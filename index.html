@@ -69,13 +69,16 @@
       position: relative;
     }
 
-    /* İçerik ekranı aştığında (özellikle foto panelinde) kartın içinde kaydır */
-    .panel.tall{ align-items: flex-start; }
+    /* Foto paneli: panel biraz daha uzun olsun, sayfayı aşağı kaydırınca aynı panel içinde devam et */
+    .panel.tall{
+      height: auto;
+      min-height: 100vh;
+      align-items: flex-start;
+      padding-bottom: 140px; /* canvas aşağıda kalsa bile eriş */
+    }
     .panel.tall .card{
-      max-height: calc(100vh - 56px);
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-gutter: stable;
+      max-height: none;
+      overflow: hidden; /* kart içinde ayrı scroll olmasın */
     }
 
     /* Sade-şık kar + çok hafif konfeti */
