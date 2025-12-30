@@ -24,7 +24,7 @@
       --snow:#F7FBFF;
       --ink:#0b1b2b;
 
-      --card: rgba(255,255,255,.82);
+      --card: rgba(255,255,255,.84);
       --cardBorder: rgba(0,0,0,.08);
       --shadow: 0 22px 55px rgba(0, 0, 0, .14);
       --radius: 26px;
@@ -74,14 +74,10 @@
       height: auto;
       min-height: 100vh;
       align-items: flex-start;
-      padding-bottom: 140px; /* canvas aşağıda kalsa bile eriş */
-    }
-    .panel.tall .card{
-      max-height: none;
-      overflow: hidden; /* kart içinde ayrı scroll olmasın */
+      padding-bottom: 140px;
     }
 
-    /* Sade-şık kar + çok hafif konfeti */
+    /* Sade-şık kar + renkli konfeti */
     .panel::before{
       content:"";
       position:absolute;
@@ -106,7 +102,7 @@
 
     .card{
       width: min(940px, 92vw);
-      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.66));
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.64));
       border: 1px solid var(--cardBorder);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -148,9 +144,9 @@
       inset:-2px;
       pointer-events:none;
       background:
-        radial-gradient(900px 280px at 10% 10%, rgba(45,204,205,.14), transparent 55%),
-        radial-gradient(800px 260px at 90% 15%, rgba(20,100,165,.12), transparent 55%),
-        radial-gradient(700px 220px at 55% 110%, rgba(246,195,67,.12), transparent 60%);
+        radial-gradient(900px 280px at 10% 10%, rgba(45,204,205,.18), transparent 55%),
+        radial-gradient(800px 260px at 90% 15%, rgba(20,100,165,.14), transparent 55%),
+        radial-gradient(700px 220px at 55% 110%, rgba(246,195,67,.14), transparent 60%);
     }
 
     .stack{ position: relative; z-index: 1; }
@@ -346,6 +342,115 @@
       gap: 10px;
       flex-wrap: wrap;
     }
+
+    /* Mini test */
+    .quiz{ display: grid; gap: 12px; margin-top: 14px; }
+
+    .badge{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.70);
+      backdrop-filter: blur(8px);
+      min-height: 74px;
+    }
+    .badge .left{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .badge .emoji{
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 24px;
+      background: linear-gradient(135deg, rgba(214,31,38,.16), rgba(246,195,67,.18), rgba(45,204,205,.18));
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .badge .title{ font-weight: 900; font-size: 16px; line-height: 1.15; }
+    .badge .desc{ margin-top: 2px; color: rgba(11,27,43,.72); font-size: 13px; line-height: 1.35; }
+
+    .seal{
+      flex: 0 0 auto;
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: linear-gradient(135deg, rgba(0,68,129,.14), rgba(45,204,205,.16));
+      color: rgba(0,68,129,.92);
+      white-space: nowrap;
+    }
+
+    .progress{ display:flex; align-items:center; justify-content: space-between; gap: 12px; }
+    .progress .bar{
+      flex: 1 1 auto;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.08);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .progress .fill{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(45,204,205,.92), rgba(20,100,165,.92), rgba(246,195,67,.92));
+      transition: width 250ms ease;
+    }
+
+    .qbox{
+      background: rgba(255,255,255,.66);
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 18px;
+      padding: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .qtitle{ font-weight: 900; font-size: 16px; color: rgba(11,27,43,.92); margin-bottom: 10px; }
+
+    .quiz .choices{ display:flex; flex-direction: column; gap: 10px; }
+
+    .quiz button.quiz-btn{
+      width: 100%;
+      text-align: left;
+      background: rgba(255,255,255,.70);
+      color: rgba(11,27,43,.92);
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: none;
+      font-weight: 900;
+      padding: 12px 14px;
+      border-radius: 14px;
+    }
+    .quiz button.quiz-btn:hover{ transform: translateY(-1px); }
+    .quiz button.quiz-btn:active{ transform: translateY(0px); }
+
+    /* Konfeti patlaması */
+    .confetti-host{ position: relative; }
+    .confetti{
+      position:absolute;
+      width: 10px;
+      height: 14px;
+      border-radius: 3px;
+      left: var(--x);
+      top: var(--y);
+      background: var(--c);
+      transform: translate(-50%, -50%) rotate(var(--r));
+      animation: confetti 900ms ease-out forwards;
+      pointer-events:none;
+      opacity: .95;
+    }
+    @keyframes confetti{
+      0%{ transform: translate(-50%, -50%) rotate(var(--r)) translate(0,0); }
+      100%{ transform: translate(-50%, -50%) rotate(calc(var(--r) + 200deg)) translate(var(--dx), var(--dy)); opacity: 0; }
+    }
   </style>
 </head>
 
@@ -370,7 +475,7 @@
     <!-- 2) Stat 1 -->
     <section class="panel" data-theme="1">
       <div class="card"><div class="stack stat">
-        <div class="kicker"><span class="dot"></span> 2025 Özeti • 1/7</div>
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 1/6</div>
         <div class="big"><span class="count" data-target="10000">0</span><span class="plus">+</span></div>
         <div class="label">2025 yılında <b>10.000+</b> rapor hazırladık.</div>
         <div class="meta"><span class="pill">Raporlama</span><span class="pill">Analiz</span><span class="pill">Süreç takibi</span></div>
@@ -380,7 +485,7 @@
     <!-- 3) Stat 2 -->
     <section class="panel" data-theme="2">
       <div class="card"><div class="stack stat">
-        <div class="kicker"><span class="dot"></span> 2025 Özeti • 2/7</div>
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 2/6</div>
         <div class="big"><span class="count" data-target="8000">0</span><span class="plus">+</span></div>
         <div class="label"><b>8.000+</b> raporu e-posta ile paylaştık.</div>
         <div class="meta"><span class="pill">Paylaşım</span><span class="pill">Ekip çalışması</span><span class="pill">Hız</span></div>
@@ -390,7 +495,7 @@
     <!-- 4) Stat 3 -->
     <section class="panel" data-theme="3">
       <div class="card"><div class="stack stat">
-        <div class="kicker"><span class="dot"></span> 2025 Özeti • 3/7</div>
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 3/6</div>
         <div class="big"><span class="count" data-target="3000">0</span><span class="plus">+</span></div>
         <div class="label"><b>3.000+</b> talebi zamanında karşıladık.</div>
         <div class="meta"><span class="pill">Talep yönetimi</span><span class="pill">SLA</span><span class="pill">Çözüm</span></div>
@@ -400,46 +505,35 @@
     <!-- 5) Stat 4 -->
     <section class="panel" data-theme="4">
       <div class="card"><div class="stack stat">
-        <div class="kicker"><span class="dot"></span> 2025 Özeti • 4/7</div>
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 4/6</div>
         <div class="big"><span class="count" data-target="6000">0</span><span class="plus">+</span></div>
         <div class="label">Her gün bağlılıkları Müşteri İletişim Merkezi’nde olan <b>6.000+</b> personelin tüm çağrı verilerine ulaştık.</div>
         <div class="meta"><span class="pill">Çağrı verisi</span><span class="pill">Operasyon</span><span class="pill">Takip</span></div>
       </div></div>
     </section>
 
-    <!-- 6) Stat 5 -->
+    <!-- 6) Eğitimler -->
     <section class="panel" data-theme="5">
       <div class="card"><div class="stack stat">
-        <div class="kicker"><span class="dot"></span> 2025 Özeti • 5/7</div>
-        <div class="big"><span class="count" data-target="100">0</span><span class="plus">%</span></div>
-        <div class="label">Tüm satış adetlerini hesapladık; raporlardan aksiyona giden yolu görünür kıldık.</div>
-        <div class="meta"><span class="pill">Satış</span><span class="pill">Performans</span><span class="pill">Görünürlük</span></div>
-        <p class="tiny">Not: Buradaki yüzde bir “vurgu” alanı. İstersen bunu gerçek bir sayıya (örn. 1.200.000+) çevirebilirsin.</p>
-      </div></div>
-    </section>
-
-    <!-- 7) Eğitimler -->
-    <section class="panel" data-theme="6">
-      <div class="card"><div class="stack stat">
-        <div class="kicker"><span class="dot"></span> 2025 Özeti • 6/7</div>
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 5/6</div>
         <div class="big"><span class="count" data-target="60">0</span><span class="plus">+</span></div>
         <div class="label"><b>60+</b> eğitim grubuna ve <b>10+</b> yeni yetkiliye eğitim verdik.</div>
         <div class="meta"><span class="pill">Eğitim</span><span class="pill">Paylaşım</span><span class="pill">Standart</span></div>
       </div></div>
     </section>
 
-    <!-- 8) Qlik Sense -->
-    <section class="panel" data-theme="7">
+    <!-- 7) Qlik Sense -->
+    <section class="panel" data-theme="6">
       <div class="card"><div class="stack stat">
-        <div class="kicker"><span class="dot"></span> 2025 Özeti • 7/7</div>
+        <div class="kicker"><span class="dot"></span> 2025 Özeti • 6/6</div>
         <div class="big"><span class="count" data-target="10">0</span><span class="plus">+</span></div>
         <div class="label"><b>10+</b> düzenli raporumuzu Qlik Sense üzerinden servis etmeye hazırız.</div>
         <div class="meta"><span class="pill">Qlik Sense</span><span class="pill">Self-servis</span><span class="pill">Hazırlık</span></div>
       </div></div>
     </section>
 
-    <!-- 9) Teşekkür -->
-    <section class="panel" data-theme="8">
+    <!-- 8) Teşekkür -->
+    <section class="panel" data-theme="7">
       <div class="card">
         <div class="stack values">
           <div class="kicker"><span class="dot"></span> Teşekkür</div>
@@ -447,6 +541,49 @@
           <p class="lead">Tüm işimiz adetlere ve analizlere dayansa da, bizi birbirimize bağlayan şey her zaman <b>değerlerimiz</b> oldu.</p>
           <div class="together">BİRLİKTE YAPARIZ.</div>
           <div class="hint" style="margin-top:18px;"><span class="chev"></span> Bir sürpriz daha var</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9) Mini Test -->
+    <section class="panel" data-theme="8">
+      <div class="card confetti-host" id="quizCard">
+        <div class="stack">
+          <div class="kicker"><span class="dot"></span> Mini test (tamamen eğlence)</div>
+          <h1>Mini karar tarzı testi</h1>
+          <p class="sub">
+            Bu test raporlama bilmek zorunda olanlara değil; <b>herkese</b>. 4 kısa soru, 1 mini rozet.
+            (Cevaplar kaydedilmez.)
+          </p>
+
+          <div class="quiz" aria-label="Mini karar tarzı testi">
+            <div class="badge" style="margin-bottom:10px;">
+              <div class="left">
+                <div class="emoji" id="badgeEmoji">🎁</div>
+                <div>
+                  <div class="title" id="badgeTitle">Sonuç burada</div>
+                  <div class="desc" id="badgeDesc">Soruları yanıtlayınca rozetin belirecek.</div>
+                </div>
+              </div>
+              <div class="seal" id="badgeSeal">MİM ROZET</div>
+            </div>
+
+            <div class="progress" aria-hidden="true">
+              <div class="bar"><div class="fill" id="qFill"></div></div>
+              <div class="tiny" id="qCount">Soru 1/4</div>
+            </div>
+
+            <div class="qbox" id="qBox">
+              <div class="qtitle" id="qTitle">Yükleniyor…</div>
+              <div class="choices" id="qChoices"></div>
+              <div class="row" style="margin-top:10px; justify-content: space-between;">
+                <button class="secondary" type="button" id="qBack" disabled>Geri</button>
+                <button type="button" id="qRestart" style="display:none;">Yeniden Dene</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="hint"><span class="chev"></span> Sonra hatıraya geçiyoruz</div>
         </div>
       </div>
     </section>
@@ -504,27 +641,17 @@
   </div>
 
   <script>
-    // --- Tema: her panelde farklı arka plan ---
+    // Tema: her panelde farklı arka plan
     const themes = [
-      // 0 Kapak (BBVA canlı)
       { bgA:'#E6F2FF', bgB:'#FFFFFF', bgC:'rgba(45,204,205,.40)', bgD:'rgba(20,100,165,.32)' },
-      // 1 Mavi + Altın (daha sıcak)
       { bgA:'#EAF3FF', bgB:'#FFF2C9', bgC:'rgba(246,195,67,.42)', bgD:'rgba(0,68,129,.28)' },
-      // 2 Turkuaz patlama
       { bgA:'#D9FFFB', bgB:'#EAF3FF', bgC:'rgba(45,204,205,.46)', bgD:'rgba(20,100,165,.24)' },
-      // 3 Kırmızı şeker (candy)
       { bgA:'#FFE3E6', bgB:'#FFF7F8', bgC:'rgba(214,31,38,.40)', bgD:'rgba(246,195,67,.22)' },
-      // 4 Yeşil çam + altın
       { bgA:'#DBFFEA', bgB:'#FFF6DB', bgC:'rgba(31,122,74,.38)', bgD:'rgba(246,195,67,.24)' },
-      // 5 Gece mavi ama “neon” turkuaz
-      { bgA:'#E1ECFF', bgB:'#E8FFFE', bgC:'rgba(0,68,129,.28)', bgD:'rgba(45,204,205,.40)' },
-      // 6 Eğitim (altın baskın)
       { bgA:'#FFF0B8', bgB:'#E7FFF9', bgC:'rgba(246,195,67,.48)', bgD:'rgba(45,204,205,.26)' },
-      // 7 Qlik (BBVA2 baskın)
       { bgA:'#DCEBFF', bgB:'#E8FFFE', bgC:'rgba(20,100,165,.36)', bgD:'rgba(45,204,205,.36)' },
-      // 8 Teşekkür (kırmızı/yeşil daha belirgin)
       { bgA:'#FFF0F2', bgB:'#E7FFEF', bgC:'rgba(31,122,74,.32)', bgD:'rgba(214,31,38,.30)' },
-      // 9 Foto (kış + altın)
+      { bgA:'#FFF3D6', bgB:'#E8FFFE', bgC:'rgba(246,195,67,.40)', bgD:'rgba(214,31,38,.26)' },
       { bgA:'#F7FBFF', bgB:'#E6F2FF', bgC:'rgba(246,195,67,.28)', bgD:'rgba(20,100,165,.28)' },
     ];
 
@@ -537,7 +664,7 @@
       r.setProperty('--bgD', t.bgD);
     }
 
-    // --- Sayı animasyonu ---
+    // Sayı animasyonu
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
     function animateCount(el){
       const target = Number(el.dataset.target || '0');
@@ -552,364 +679,524 @@
       requestAnimationFrame(frame);
     }
 
-    const panelIO = new IntersectionObserver((entries) => {
-      for(const e of entries){
-        if(e.isIntersecting){
-          const themeIndex = Number(e.target.dataset.theme || '0');
-          applyTheme(themeIndex);
+    // Konfeti
+    function burstConfetti(host){
+      if(!host) return;
+      const rect = host.getBoundingClientRect();
+      const x = rect.width * 0.72;
+      const y = rect.height * 0.30;
+      const colors = ['#D61F26','#1F7A4A','#F6C343','#2DCCCD','#1464A5'];
+      for(let i=0;i<18;i++){
+        const el = document.createElement('div');
+        el.className = 'confetti';
+        const c = colors[i % colors.length];
+        const r = (Math.random()*180 - 90).toFixed(0) + 'deg';
+        const dx = (Math.random()*220 - 110).toFixed(0) + 'px';
+        const dy = (Math.random()*260 + 40).toFixed(0) + 'px';
+        const xx = (x + (Math.random()*80 - 40)).toFixed(0) + 'px';
+        const yy = (y + (Math.random()*60 - 30)).toFixed(0) + 'px';
+        el.style.setProperty('--c', c);
+        el.style.setProperty('--r', r);
+        el.style.setProperty('--dx', dx);
+        el.style.setProperty('--dy', dy);
+        el.style.setProperty('--x', xx);
+        el.style.setProperty('--y', yy);
+        host.appendChild(el);
+        setTimeout(() => el.remove(), 950);
+      }
+    }
 
-          const c = e.target.querySelector?.('.count');
-          if(c && !c.dataset.done){
-            c.dataset.done = '1';
-            animateCount(c);
+    document.addEventListener('DOMContentLoaded', () => {
+      // Panel gözlem: tema + sayaç
+      const panelIO = new IntersectionObserver((entries) => {
+        for(const e of entries){
+          if(e.isIntersecting){
+            const themeIndex = Number(e.target.dataset.theme || '0');
+            applyTheme(themeIndex);
+
+            const c = e.target.querySelector('.count');
+            if(c && !c.dataset.done){
+              c.dataset.done = '1';
+              animateCount(c);
+            }
           }
         }
-      }
-    }, { threshold: 0.60 });
+      }, { threshold: 0.60 });
 
-    document.querySelectorAll('.panel').forEach(p => panelIO.observe(p));
+      document.querySelectorAll('.panel').forEach(p => panelIO.observe(p));
+      applyTheme(0);
 
-    // --- Fotoğraf çerçevesi: kırpmayı azalt + daha alâkalı süslemeler ---
-    const fileInput = document.getElementById('file');
-    const makeBtn = document.getElementById('make');
-    const dlBtn = document.getElementById('download');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+      // --- Fotoğraf çerçevesi ---
+      const fileInput = document.getElementById('file');
+      const makeBtn = document.getElementById('make');
+      const dlBtn = document.getElementById('download');
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas?.getContext('2d');
 
-    const zoomEl = document.getElementById('zoom');
-    const panXEl = document.getElementById('panX');
-    const panYEl = document.getElementById('panY');
+      const zoomEl = document.getElementById('zoom');
+      const panXEl = document.getElementById('panX');
+      const panYEl = document.getElementById('panY');
 
-    const state = {
-      img: null,
-      composedUrl: null,
-      zoom: 1,
-      panX: 0,
-      panY: 0,
-    };
+      const state = { img: null, composedUrl: null, zoom: 1, panX: 0, panY: 0 };
 
-    function drawPlaceholder(){
-      ctx.clearRect(0,0,canvas.width, canvas.height);
-      const g = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-      g.addColorStop(0, 'rgba(20,100,165,.16)');
-      g.addColorStop(1, 'rgba(45,204,205,.14)');
-      ctx.fillStyle = g;
-      ctx.fillRect(0,0,canvas.width, canvas.height);
+      function drawPlaceholder(){
+        if(!ctx || !canvas) return;
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        const g = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+        g.addColorStop(0, 'rgba(20,100,165,.16)');
+        g.addColorStop(1, 'rgba(45,204,205,.14)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0,0,canvas.width, canvas.height);
 
-      ctx.fillStyle = 'rgba(11,27,43,.82)';
-      ctx.font = '900 54px Inter, system-ui, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('Fotoğraf seçince burada görünecek', canvas.width/2, canvas.height/2 - 10);
-      ctx.fillStyle = 'rgba(11,27,43,.65)';
-      ctx.font = '700 34px Inter, system-ui, sans-serif';
-      ctx.fillText('📷  🎄  ✨', canvas.width/2, canvas.height/2 + 55);
-    }
-
-    drawPlaceholder();
-
-    function roundRect(c, x, y, w, h, r){
-      const rr = Math.min(r, w/2, h/2);
-      c.beginPath();
-      c.moveTo(x+rr, y);
-      c.arcTo(x+w, y, x+w, y+h, rr);
-      c.arcTo(x+w, y+h, x, y+h, rr);
-      c.arcTo(x, y+h, x, y, rr);
-      c.arcTo(x, y, x+w, y, rr);
-      c.closePath();
-    }
-
-    function drawCover(img){
-      // cover (arka plan için)
-      const cw = canvas.width, ch = canvas.height;
-      const iw = img.naturalWidth, ih = img.naturalHeight;
-      const ir = iw/ih, cr = cw/ch;
-      let sx, sy, sw, sh;
-      if(ir > cr){ sh = ih; sw = ih*cr; sx = (iw - sw)/2; sy = 0; }
-      else { sw = iw; sh = iw/cr; sx = 0; sy = (ih - sh)/2; }
-      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
-    }
-
-    function drawContain(img){
-      // contain (kırpmayı azaltmak için)
-      const cw = canvas.width, ch = canvas.height;
-      const iw = img.naturalWidth, ih = img.naturalHeight;
-      const scale = Math.min(cw/iw, ch/ih) * state.zoom;
-      const dw = iw*scale;
-      const dh = ih*scale;
-
-      // panX/panY -1..1 aralığında, kalan boşluğa göre kaydır
-      const maxX = Math.max(0, (cw - dw)/2);
-      const maxY = Math.max(0, (ch - dh)/2);
-      const dx = (cw - dw)/2 + state.panX * maxX;
-      const dy = (ch - dh)/2 + state.panY * maxY;
-
-      ctx.drawImage(img, dx, dy, dw, dh);
-    }
-
-    function drawGarland(){
-      // Üstte şık ışık zinciri + birkaç yıldız
-      ctx.save();
-      ctx.lineWidth = 10;
-      ctx.strokeStyle = 'rgba(0,0,0,.18)';
-      ctx.beginPath();
-      ctx.moveTo(90, 140);
-      ctx.bezierCurveTo(canvas.width*0.30, 60, canvas.width*0.70, 230, canvas.width-90, 140);
-      ctx.stroke();
-
-      const bulbs = 11;
-      const colors = ['rgba(214,31,38,.95)','rgba(246,195,67,.95)','rgba(31,122,74,.95)','rgba(45,204,205,.95)'];
-      for(let i=0;i<bulbs;i++){
-        const t = i/(bulbs-1);
-        const x = 90 + (canvas.width-180)*t;
-        const y = 140 + Math.sin(t*Math.PI)*58;
-        const r = 16;
-        const col = colors[i % colors.length];
-        const gg = ctx.createRadialGradient(x-4,y-5,4,x,y,r);
-        gg.addColorStop(0,'rgba(255,255,255,.98)');
-        gg.addColorStop(1,col);
-        ctx.fillStyle = gg;
-        ctx.beginPath();
-        ctx.arc(x,y,r,0,Math.PI*2);
-        ctx.fill();
+        ctx.fillStyle = 'rgba(11,27,43,.82)';
+        ctx.font = '900 54px Inter, system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Fotoğraf seçince burada görünecek', canvas.width/2, canvas.height/2 - 10);
+        ctx.fillStyle = 'rgba(11,27,43,.65)';
+        ctx.font = '700 34px Inter, system-ui, sans-serif';
+        ctx.fillText('📷  🎄  ✨', canvas.width/2, canvas.height/2 + 55);
       }
 
-      // ufak yıldızlar
-      function star(cx, cy, spikes, outerR, innerR){
-        let rot = Math.PI/2*3;
-        let x = cx;
-        let y = cy;
-        const step = Math.PI/spikes;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy - outerR);
-        for(let i=0;i<spikes;i++){
-          x = cx + Math.cos(rot) * outerR;
-          y = cy + Math.sin(rot) * outerR;
-          ctx.lineTo(x,y);
-          rot += step;
-
-          x = cx + Math.cos(rot) * innerR;
-          y = cy + Math.sin(rot) * innerR;
-          ctx.lineTo(x,y);
-          rot += step;
-        }
-        ctx.lineTo(cx, cy - outerR);
-        ctx.closePath();
+      function roundRect(c, x, y, w, h, r){
+        const rr = Math.min(r, w/2, h/2);
+        c.beginPath();
+        c.moveTo(x+rr, y);
+        c.arcTo(x+w, y, x+w, y+h, rr);
+        c.arcTo(x+w, y+h, x, y+h, rr);
+        c.arcTo(x, y+h, x, y, rr);
+        c.arcTo(x, y, x+w, y, rr);
+        c.closePath();
       }
 
-      ctx.fillStyle = 'rgba(246,195,67,.92)';
-      star(140, 260, 5, 16, 7); ctx.fill();
-      star(canvas.width-160, 250, 5, 14, 6); ctx.fill();
+      function drawCover(img){
+        const cw = canvas.width, ch = canvas.height;
+        const iw = img.naturalWidth, ih = img.naturalHeight;
+        const ir = iw/ih, cr = cw/ch;
+        let sx, sy, sw, sh;
+        if(ir > cr){ sh = ih; sw = ih*cr; sx = (iw - sw)/2; sy = 0; }
+        else { sw = iw; sh = iw/cr; sx = 0; sy = (ih - sh)/2; }
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
+      }
 
-      ctx.restore();
-    }
+      function drawContain(img){
+        const cw = canvas.width, ch = canvas.height;
+        const iw = img.naturalWidth, ih = img.naturalHeight;
+        const scale = Math.min(cw/iw, ch/ih) * state.zoom;
+        const dw = iw*scale;
+        const dh = ih*scale;
 
-    function drawPineCorners(){
-      // Köşelerde minimalist çam dalı (alakasız süsleri kaldırdık)
-      ctx.save();
-      ctx.globalAlpha = 0.95;
+        const maxX = Math.max(0, (cw - dw)/2);
+        const maxY = Math.max(0, (ch - dh)/2);
+        const dx = (cw - dw)/2 + state.panX * maxX;
+        const dy = (ch - dh)/2 + state.panY * maxY;
 
-      function pineCluster(x, y, flip){
+        ctx.drawImage(img, dx, dy, dw, dh);
+      }
+
+      function drawGarland(){
         ctx.save();
-        ctx.translate(x,y);
-        if(flip) ctx.scale(-1,1);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = 'rgba(0,0,0,.18)';
+        ctx.beginPath();
+        ctx.moveTo(90, 140);
+        ctx.bezierCurveTo(canvas.width*0.30, 60, canvas.width*0.70, 230, canvas.width-90, 140);
+        ctx.stroke();
 
-        const greens = ['rgba(31,122,74,.88)','rgba(22,92,55,.86)','rgba(45,120,80,.82)'];
-        for(let i=0;i<10;i++){
-          ctx.fillStyle = greens[i%greens.length];
+        const bulbs = 11;
+        const colors = ['rgba(214,31,38,.95)','rgba(246,195,67,.95)','rgba(31,122,74,.95)','rgba(45,204,205,.95)'];
+        for(let i=0;i<bulbs;i++){
+          const t = i/(bulbs-1);
+          const x = 90 + (canvas.width-180)*t;
+          const y = 140 + Math.sin(t*Math.PI)*58;
+          const r = 16;
+          const col = colors[i % colors.length];
+          const gg = ctx.createRadialGradient(x-4,y-5,4,x,y,r);
+          gg.addColorStop(0,'rgba(255,255,255,.98)');
+          gg.addColorStop(1,col);
+          ctx.fillStyle = gg;
           ctx.beginPath();
-          ctx.moveTo(0,0);
-          ctx.quadraticCurveTo(70 + i*6, 18 + i*4, 160 + i*8, 70 + i*10);
-          ctx.quadraticCurveTo(80 + i*5, 60 + i*6, 0, 0);
-          ctx.closePath();
+          ctx.arc(x,y,r,0,Math.PI*2);
           ctx.fill();
         }
 
-        // küçük kırmızı top
-        const bx = 120, by = 110;
-        const r = 20;
-        const gg = ctx.createRadialGradient(bx-6,by-7,6,bx,by,r);
-        gg.addColorStop(0,'rgba(255,255,255,.95)');
-        gg.addColorStop(1,'rgba(214,31,38,.95)');
-        ctx.fillStyle = gg;
-        ctx.beginPath();
-        ctx.arc(bx,by,r,0,Math.PI*2);
-        ctx.fill();
+        function star(cx, cy, spikes, outerR, innerR){
+          let rot = Math.PI/2*3;
+          const step = Math.PI/spikes;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy - outerR);
+          for(let i=0;i<spikes;i++){
+            ctx.lineTo(cx + Math.cos(rot) * outerR, cy + Math.sin(rot) * outerR);
+            rot += step;
+            ctx.lineTo(cx + Math.cos(rot) * innerR, cy + Math.sin(rot) * innerR);
+            rot += step;
+          }
+          ctx.lineTo(cx, cy - outerR);
+          ctx.closePath();
+        }
 
-        // küçük altın top
-        const bx2 = 70, by2 = 145;
-        const r2 = 16;
-        const gg2 = ctx.createRadialGradient(bx2-5,by2-6,5,bx2,by2,r2);
-        gg2.addColorStop(0,'rgba(255,255,255,.95)');
-        gg2.addColorStop(1,'rgba(246,195,67,.95)');
-        ctx.fillStyle = gg2;
-        ctx.beginPath();
-        ctx.arc(bx2,by2,r2,0,Math.PI*2);
-        ctx.fill();
+        ctx.fillStyle = 'rgba(246,195,67,.92)';
+        star(140, 260, 5, 16, 7); ctx.fill();
+        star(canvas.width-160, 250, 5, 14, 6); ctx.fill();
 
         ctx.restore();
       }
 
-      pineCluster(40, 40, false);
-      pineCluster(canvas.width-40, 40, true);
-      ctx.restore();
-    }
+      function drawPineCorners(){
+        ctx.save();
+        ctx.globalAlpha = 0.95;
 
-    function drawFrame(){
-      const pad = 38;
-      const r = 52;
+        function pineCluster(x, y, flip){
+          ctx.save();
+          ctx.translate(x,y);
+          if(flip) ctx.scale(-1,1);
 
-      ctx.save();
-      ctx.lineWidth = 16;
-      const g = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-      g.addColorStop(0, 'rgba(0,68,129,.92)');
-      g.addColorStop(.50, 'rgba(45,204,205,.82)');
-      g.addColorStop(1, 'rgba(246,195,67,.82)');
-      ctx.strokeStyle = g;
+          const greens = ['rgba(31,122,74,.88)','rgba(22,92,55,.86)','rgba(45,120,80,.82)'];
+          for(let i=0;i<10;i++){
+            ctx.fillStyle = greens[i%greens.length];
+            ctx.beginPath();
+            ctx.moveTo(0,0);
+            ctx.quadraticCurveTo(70 + i*6, 18 + i*4, 160 + i*8, 70 + i*10);
+            ctx.quadraticCurveTo(80 + i*5, 60 + i*6, 0, 0);
+            ctx.closePath();
+            ctx.fill();
+          }
 
-      roundRect(ctx, pad, pad, canvas.width-pad*2, canvas.height-pad*2, r);
-      ctx.stroke();
+          const bx = 120, by = 110;
+          const r = 20;
+          const gg = ctx.createRadialGradient(bx-6,by-7,6,bx,by,r);
+          gg.addColorStop(0,'rgba(255,255,255,.95)');
+          gg.addColorStop(1,'rgba(214,31,38,.95)');
+          ctx.fillStyle = gg;
+          ctx.beginPath();
+          ctx.arc(bx,by,r,0,Math.PI*2);
+          ctx.fill();
 
-      ctx.lineWidth = 7;
-      ctx.strokeStyle = 'rgba(255,255,255,.38)';
-      roundRect(ctx, pad+20, pad+20, canvas.width-(pad+20)*2, canvas.height-(pad+20)*2, r-12);
-      ctx.stroke();
+          const bx2 = 70, by2 = 145;
+          const r2 = 16;
+          const gg2 = ctx.createRadialGradient(bx2-5,by2-6,5,bx2,by2,r2);
+          gg2.addColorStop(0,'rgba(255,255,255,.95)');
+          gg2.addColorStop(1,'rgba(246,195,67,.95)');
+          ctx.fillStyle = gg2;
+          ctx.beginPath();
+          ctx.arc(bx2,by2,r2,0,Math.PI*2);
+          ctx.fill();
 
-      ctx.restore();
+          ctx.restore();
+        }
 
-      drawGarland();
-      drawPineCorners();
-    }
+        pineCluster(40, 40, false);
+        pineCluster(canvas.width-40, 40, true);
+        ctx.restore();
+      }
 
-    function drawText(){
-      // Daha profesyonel: Inter Black, stroke + fill ile okunaklı
-      const main = 'MİM RAPORLAMA HATIRASI';
-      const year = '2025';
+      function drawFrame(){
+        const pad = 38;
+        const r = 52;
 
-      ctx.save();
+        ctx.save();
+        ctx.lineWidth = 16;
+        const g = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+        g.addColorStop(0, 'rgba(0,68,129,.92)');
+        g.addColorStop(.50, 'rgba(45,204,205,.82)');
+        g.addColorStop(1, 'rgba(246,195,67,.82)');
+        ctx.strokeStyle = g;
 
-      // alt bant
-      ctx.fillStyle = 'rgba(255,255,255,.62)';
-      roundRect(ctx, 64, canvas.height-210, canvas.width-128, 150, 34);
-      ctx.fill();
+        roundRect(ctx, pad, pad, canvas.width-pad*2, canvas.height-pad*2, r);
+        ctx.stroke();
 
-      // üstte ince çizgi
-      ctx.strokeStyle = 'rgba(0,0,0,.08)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(92, canvas.height-160);
-      ctx.lineTo(canvas.width-92, canvas.height-160);
-      ctx.stroke();
+        ctx.lineWidth = 7;
+        ctx.strokeStyle = 'rgba(255,255,255,.38)';
+        roundRect(ctx, pad+20, pad+20, canvas.width-(pad+20)*2, canvas.height-(pad+20)*2, r-12);
+        ctx.stroke();
 
-      // ana yazı
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.shadowColor = 'rgba(0,0,0,.18)';
-      ctx.shadowBlur = 10;
-      ctx.shadowOffsetY = 6;
+        ctx.restore();
+        drawGarland();
+        drawPineCorners();
+      }
 
-      ctx.font = '900 58px Inter, system-ui, sans-serif';
-      const y = canvas.height - 142;
+      function drawText(){
+        const main = 'MİM RAPORLAMA HATIRASI';
+        const year = '2025';
 
-      // Stroke (koyu) + Fill (BBVA/altın degrade)
-      ctx.lineWidth = 10;
-      ctx.strokeStyle = 'rgba(11,27,43,.75)';
-      ctx.strokeText(main, canvas.width/2, y);
+        ctx.save();
 
-      const gg = ctx.createLinearGradient(0, y-30, canvas.width, y+30);
-      gg.addColorStop(0, 'rgba(0,68,129,.95)');
-      gg.addColorStop(.55, 'rgba(20,100,165,.95)');
-      gg.addColorStop(1, 'rgba(246,195,67,.95)');
-      ctx.fillStyle = gg;
-      ctx.fillText(main, canvas.width/2, y);
+        ctx.fillStyle = 'rgba(255,255,255,.62)';
+        roundRect(ctx, 64, canvas.height-210, canvas.width-128, 150, 34);
+        ctx.fill();
 
-      // yıl
-      ctx.shadowBlur = 0;
-      ctx.shadowOffsetY = 0;
-      ctx.font = '800 34px Inter, system-ui, sans-serif';
-      ctx.fillStyle = 'rgba(11,27,43,.72)';
-      ctx.fillText(year, canvas.width/2, canvas.height - 86);
+        ctx.strokeStyle = 'rgba(0,0,0,.08)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(92, canvas.height-160);
+        ctx.lineTo(canvas.width-92, canvas.height-160);
+        ctx.stroke();
 
-      ctx.restore();
-    }
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0,0,0,.18)';
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetY = 6;
 
-    function compose(){
-      if(!state.img) return;
-      ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.font = '900 58px Inter, system-ui, sans-serif';
+        const y = canvas.height - 142;
 
-      // 1) Arka plan: foto cover + blur
-      ctx.save();
-      ctx.filter = 'blur(26px)';
-      drawCover(state.img);
-      ctx.restore();
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = 'rgba(11,27,43,.75)';
+        ctx.strokeText(main, canvas.width/2, y);
 
-      // 2) Arka planın üstüne hafif renk/vignette
-      const bg = ctx.createLinearGradient(0,0,0,canvas.height);
-      bg.addColorStop(0, 'rgba(0,68,129,.20)');
-      bg.addColorStop(1, 'rgba(0,0,0,.20)');
-      ctx.fillStyle = bg;
-      ctx.fillRect(0,0,canvas.width, canvas.height);
+        const gg = ctx.createLinearGradient(0, y-30, canvas.width, y+30);
+        gg.addColorStop(0, 'rgba(0,68,129,.95)');
+        gg.addColorStop(.55, 'rgba(20,100,165,.95)');
+        gg.addColorStop(1, 'rgba(246,195,67,.95)');
+        ctx.fillStyle = gg;
+        ctx.fillText(main, canvas.width/2, y);
 
-      // 3) Öndeki asıl foto: contain (kırpmayı azaltır)
-      ctx.save();
-      ctx.globalAlpha = 0.98;
-      drawContain(state.img);
-      ctx.restore();
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.font = '800 34px Inter, system-ui, sans-serif';
+        ctx.fillStyle = 'rgba(11,27,43,.72)';
+        ctx.fillText(year, canvas.width/2, canvas.height - 86);
 
-      // 4) çerçeve + yazı
-      drawFrame();
-      drawText();
+        ctx.restore();
+      }
 
-      state.composedUrl = canvas.toDataURL('image/png');
-      dlBtn.disabled = false;
-    }
+      function compose(){
+        if(!state.img || !ctx || !canvas) return;
+        ctx.clearRect(0,0,canvas.width, canvas.height);
 
-    function updateStateFromSliders(){
-      state.zoom = Number(zoomEl?.value || 1);
-      state.panX = Number(panXEl?.value || 0);
-      state.panY = Number(panYEl?.value || 0);
-      if(state.img) compose();
-    }
+        ctx.save();
+        ctx.filter = 'blur(26px)';
+        drawCover(state.img);
+        ctx.restore();
 
-    zoomEl?.addEventListener('input', updateStateFromSliders);
-    panXEl?.addEventListener('input', updateStateFromSliders);
-    panYEl?.addEventListener('input', updateStateFromSliders);
+        const bg = ctx.createLinearGradient(0,0,0,canvas.height);
+        bg.addColorStop(0, 'rgba(0,68,129,.20)');
+        bg.addColorStop(1, 'rgba(0,0,0,.20)');
+        ctx.fillStyle = bg;
+        ctx.fillRect(0,0,canvas.width, canvas.height);
 
-    fileInput?.addEventListener('change', (e) => {
-      const file = e.target.files?.[0];
-      dlBtn.disabled = true;
-      state.composedUrl = null;
+        ctx.save();
+        ctx.globalAlpha = 0.98;
+        drawContain(state.img);
+        ctx.restore();
 
-      if(!file){ makeBtn.disabled = true; drawPlaceholder(); return; }
-      makeBtn.disabled = false;
+        drawFrame();
+        drawText();
 
-      const img = new Image();
-      img.onload = () => {
-        state.img = img;
-        // reset sliderlar
-        if(zoomEl) zoomEl.value = '1';
-        if(panXEl) panXEl.value = '0';
-        if(panYEl) panYEl.value = '0';
-        state.zoom = 1; state.panX = 0; state.panY = 0;
-        compose();
+        state.composedUrl = canvas.toDataURL('image/png');
+        if(dlBtn) dlBtn.disabled = false;
+      }
+
+      function updateStateFromSliders(){
+        state.zoom = Number(zoomEl?.value || 1);
+        state.panX = Number(panXEl?.value || 0);
+        state.panY = Number(panYEl?.value || 0);
+        if(state.img) compose();
+      }
+
+      zoomEl?.addEventListener('input', updateStateFromSliders);
+      panXEl?.addEventListener('input', updateStateFromSliders);
+      panYEl?.addEventListener('input', updateStateFromSliders);
+
+      if(ctx && canvas) drawPlaceholder();
+
+      fileInput?.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if(dlBtn) dlBtn.disabled = true;
+        state.composedUrl = null;
+
+        if(!file){
+          if(makeBtn) makeBtn.disabled = true;
+          drawPlaceholder();
+          return;
+        }
+        if(makeBtn) makeBtn.disabled = false;
+
+        const img = new Image();
+        img.onload = () => {
+          state.img = img;
+          if(zoomEl) zoomEl.value = '1';
+          if(panXEl) panXEl.value = '0';
+          if(panYEl) panYEl.value = '0';
+          state.zoom = 1; state.panX = 0; state.panY = 0;
+          compose();
+        };
+        img.onerror = () => { alert('Görsel okunamadı. Başka bir fotoğraf dener misin?'); };
+        img.src = URL.createObjectURL(file);
+      });
+
+      makeBtn?.addEventListener('click', () => { if(state.img) compose(); });
+
+      dlBtn?.addEventListener('click', () => {
+        if(!state.composedUrl) return;
+        const a = document.createElement('a');
+        a.href = state.composedUrl;
+        a.download = 'mim-raporlama-hatirasi.png';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      });
+
+      // --- Mini test ---
+      const quizCard = document.getElementById('quizCard');
+      const badgeEmoji = document.getElementById('badgeEmoji');
+      const badgeTitle = document.getElementById('badgeTitle');
+      const badgeDesc = document.getElementById('badgeDesc');
+      const badgeSeal = document.getElementById('badgeSeal');
+
+      const qFill = document.getElementById('qFill');
+      const qCount = document.getElementById('qCount');
+      const qTitle = document.getElementById('qTitle');
+      const qChoices = document.getElementById('qChoices');
+      const qBack = document.getElementById('qBack');
+      const qRestart = document.getElementById('qRestart');
+
+      const archetypes = {
+        aksiyon: {
+          emoji: '⚡',
+          title: 'Hızlı Aksiyoncu',
+          desc: 'Net, hızlı ve pratik. Önce ilerletir, sonra gerekirse düzeltirsin.',
+          seal: 'AKSİYON MODU'
+        },
+        detay: {
+          emoji: '🔎',
+          title: 'Detay Avcısı',
+          desc: 'Güven senin işin. Küçük sapmaları yakalar, büyük sürprizleri engellersin.',
+          seal: 'DETAY MODU'
+        },
+        denge: {
+          emoji: '🎯',
+          title: 'Denge Ustası',
+          desc: 'Hız ve kalite arasında müthiş bir denge kurarsın. “Tam kararında” insanısın.',
+          seal: 'DENGE MODU'
+        }
       };
-      img.onerror = () => { alert('Görsel okunamadı. Başka bir fotoğraf dener misin?'); };
-      img.src = URL.createObjectURL(file);
+
+      const questions = [
+        {
+          q: 'Bir bilgi geldiğinde ilk ne yaparsın?',
+          a: [
+            { t: 'Hızlıca özete bakar, aksiyonu çıkarırım.', k: 'aksiyon' },
+            { t: 'Detayına iner, emin olmadan ilerlemem.', k: 'detay' },
+            { t: 'Önce büyük resmi, sonra kritik detayları kontrol ederim.', k: 'denge' },
+          ]
+        },
+        {
+          q: 'Toplantı 2 dakika sonra ve bir bilgi eksik. Sen ne dersin?',
+          a: [
+            { t: 'Şimdilik en iyi tahminle gideriz, sonra güncelleriz.', k: 'aksiyon' },
+            { t: 'Eksikse paylaşmayalım; netleşince iletelim.', k: 'detay' },
+            { t: 'Eksik olduğunu not düşelim; riskini söyleyip devam edelim.', k: 'denge' },
+          ]
+        },
+        {
+          q: 'Bir karar alırken seni en çok ne rahatlatır?',
+          a: [
+            { t: 'Hızlı bir yön belirlemek ve ilerlemek.', k: 'aksiyon' },
+            { t: 'Kontrol edilmiş, tutarlı bir tablo.', k: 'detay' },
+            { t: 'Net bir özet + kritik detaylar (ikisi birlikte).', k: 'denge' },
+          ]
+        },
+        {
+          q: 'Günün sonunda “iyi iş” dedirten şey hangisi?',
+          a: [
+            { t: 'Bir işi bitirip teslim etmek.', k: 'aksiyon' },
+            { t: 'Hatasız ve sağlam sonuç çıkarmak.', k: 'detay' },
+            { t: 'Hem zamanında hem de güvenilir bir sonuç.', k: 'denge' },
+          ]
+        }
+      ];
+
+      const score = { aksiyon: 0, detay: 0, denge: 0 };
+      let qi = 0;
+      const answers = [];
+
+      function setBadge(key){
+        const a = archetypes[key];
+        badgeEmoji.textContent = a.emoji;
+        badgeTitle.textContent = a.title;
+        badgeDesc.textContent = a.desc;
+        badgeSeal.textContent = a.seal;
+      }
+
+      function updateProgress(){
+        const total = questions.length;
+        const pct = Math.round((qi / total) * 100);
+        qFill.style.width = pct + '%';
+        qCount.textContent = `Soru ${Math.min(qi+1, total)}/${total}`;
+      }
+
+      function renderQuestion(){
+        qRestart.style.display = 'none';
+        qBack.disabled = qi === 0;
+        updateProgress();
+
+        const item = questions[qi];
+        qTitle.textContent = item.q;
+        qChoices.innerHTML = '';
+
+        item.a.forEach((opt) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'quiz-btn';
+          b.textContent = opt.t;
+          b.addEventListener('click', () => choose(opt.k));
+          qChoices.appendChild(b);
+        });
+      }
+
+      function choose(key){
+        if(answers[qi]){
+          score[answers[qi]] = Math.max(0, score[answers[qi]] - 1);
+        }
+        answers[qi] = key;
+        score[key] += 1;
+
+        if(qi < questions.length - 1){
+          qi += 1;
+          renderQuestion();
+        } else {
+          finish();
+        }
+      }
+
+      function finish(){
+        qFill.style.width = '100%';
+        qCount.textContent = `Soru ${questions.length}/${questions.length}`;
+        qTitle.textContent = 'Rozetin hazır 🎉';
+        qChoices.innerHTML = '';
+
+        const entries = Object.entries(score).sort((a,b) => b[1] - a[1]);
+        let top = entries[0][0];
+        if(entries.length > 1 && entries[0][1] === entries[1][1]) top = 'denge';
+
+        setBadge(top);
+        burstConfetti(quizCard);
+
+        qBack.disabled = false;
+        qRestart.style.display = 'inline-flex';
+      }
+
+      qBack.addEventListener('click', () => {
+        if(qi === 0) return;
+        qi -= 1;
+        renderQuestion();
+      });
+
+      qRestart.addEventListener('click', () => {
+        score.aksiyon = 0; score.detay = 0; score.denge = 0;
+        answers.length = 0;
+        qi = 0;
+        badgeEmoji.textContent = '🎁';
+        badgeTitle.textContent = 'Sonuç burada';
+        badgeDesc.textContent = 'Soruları yanıtlayınca rozetin belirecek.';
+        badgeSeal.textContent = 'MİM ROZET';
+        renderQuestion();
+      });
+
+      // Testi başlat
+      renderQuestion();
     });
-
-    makeBtn?.addEventListener('click', () => { if(state.img) compose(); });
-
-    dlBtn?.addEventListener('click', () => {
-      if(!state.composedUrl) return;
-      const a = document.createElement('a');
-      a.href = state.composedUrl;
-      a.download = 'mim-raporlama-hatirasi.png';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    });
-
-    // İlk tema
-    applyTheme(0);
   </script>
 </body>
 </html>
